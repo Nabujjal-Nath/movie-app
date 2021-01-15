@@ -4,6 +4,7 @@ const baseUrl='https://api.themoviedb.org/3';
 const nowPlaying=`${baseUrl}/movie/now_playing`;
 const genreList=`${baseUrl}/genre/movie/list`;
 const discoverMovie=`${baseUrl}/discover/movie`;
+const trendingPerson=`${baseUrl}/trending/person/week`;
 
 export const fetchNowPlaying=async()=>{
  const {data}= await axios.get(nowPlaying,{
@@ -62,6 +63,22 @@ export const fetchDiscoverMovie=async(genre_id)=>{
 
 }
 
+export const fetchTrendingPerson=async()=>{
+    const {data}=await axios.get(trendingPerson,{
+        params:{
+            api_key:apiKey
+        }
+    })
+ const modifiedData=data['results'].map((m)=>({
+     id:m['id'],
+     popularity:m['popularity'],
+     name:m['name'],
+     profileImg:'https://image.tmdb.org/t/p/w200'+m['profile_path'],
+     known:m['known_for_department']
+ }))
+ return modifiedData; 
+
+}  
 
 
 
