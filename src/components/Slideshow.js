@@ -18,7 +18,7 @@ function Slideshow(){
         return (
                  
             
-                <Carousel.Item key={index} style={{ height: 500, width: "100%" }} >
+                <Carousel.Item   key={index} style={{ height: 500, width: "100%" }} >
                     <img
                         className="d-block w-100"
                         src={item.backPoster}
@@ -41,10 +41,15 @@ function Slideshow(){
         );
     });
 
+  
+
     return(
-        <Carousel>
+        <div>
+        <h1>Movies Playing Now in Theatre</h1>
+        <Carousel >
            {jkl}
         </Carousel>
+    </div>
     )
 }
 

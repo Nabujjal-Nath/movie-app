@@ -39,17 +39,29 @@ export const fetchGenreList=async()=>{
 
 }
 
-export const fetchDiscoverMovie=async()=>{
-    const {data}=await axios.get(genreList,{
+export const fetchDiscoverMovie=async(genre_id)=>{
+    const {data}=await axios.get(discoverMovie,{
         params:{
-            api_key:apiKey
+            api_key:apiKey,
+            page:1,
+            with_genres:genre_id
         }
     })
- const modifiedData=data['genres'].map((m)=>({
-     id:m['id'],
-     name:m['name']
- }))
- return modifiedData; 
+    const posterUrl='https://image.tmdb.org/t/p/original/';
+    const modifiedData=data['results'].map((m)=>({
+        id : m['id'],
+        backPoster : posterUrl + m['backdrop_path'],
+        popularity : m['popularith'],
+        title:m['title'],
+        poster:posterUrl+m['poster_path'],
+        overview:m['overview'],
+        rating:m['vote_average']
+   
+    }))
+    return modifiedData;
 
 }
+
+
+
 

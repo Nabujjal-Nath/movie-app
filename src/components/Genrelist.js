@@ -1,37 +1,111 @@
-import React,{useState,useEffect} from 'react';
-import {fetchGenreList} from '../leverageAPI/Api'
-function Genrelist(){
+import React, { useState, useEffect } from 'react';
+import { fetchGenreList, fetchDiscoverMovie } from '../leverageAPI/Api'
+import { Link } from 'react-router-dom';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+
+function Genrelist() {
     const [genreList, setGenreList] = useState([]);
+    const [discoverMovie, setDiscoverMovie] = useState([]);
     useEffect(() => {
         const fetchAPI = async () => {
             setGenreList(await fetchGenreList());
+            setDiscoverMovie(await fetchDiscoverMovie());
         };
         fetchAPI();
     }, []);
-  console.log("gggg",genreList);
- const genres= genreList.map((item,index)=>{
-     return(
-         <li className="list-inline-item" key={index}>
-           <button type="button" className="btn btn-outline-info">
-           {item.name}
-           </button>
-         </li>
-     );
- })
+    const handleGenreEvent = async (genre_id) => {
+        setDiscoverMovie(await fetchDiscoverMovie(genre_id));
 
- return(
-     <div className="row mt-3">
-       <div className="col">
-        <ul className="list-inline">
-          {genres}
-        </ul>
-       </div>
-     </div>
- );
+    }
 
+    const genres = genreList.map((item, index) => {
+        return (
+            <li className="list-inline-item" key={index}>
+                <button type="button" className="btn btn-outline-info" onClick={(e) => {
+                    e.preventDefault();
+                    handleGenreEvent(item.id);
+                }}>
+                    {item.name}
+                </button>
+            </li>
+        );
+    })
+
+    const discover = discoverMovie.slice(0, 64).map((item, index) => {
+        return (
+            <div className="i" style={{ display: 'flex' }} key={index}>
+                <div className="i" style={{ backgroundColor: "cyan", display: 'flex', justifyContent: 'center', width: '220px', height: '380px', margin: '10px' }}>
+                    <Link to={`/movie/${item.id}`}>
+                        <img className="i" style={{ width: '200px', height: '270px', paddingTop: '20px' }} src={item.poster} alt={item.title}></img>
+                        <p className="i" style={{ color: "blue" }}>{item.title}</p>
+                        <p className="i" style={{ color: "blue" }} >Rated:{item.rating}</p>
+                    </Link>
+                </div>
+            </div>
+        )
+    })
+
+
+    var settings = {
+        dots: false,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 4,
+        slidesToScroll: 3,
+        initialSlide: 0,
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3,
+              infinite: true,
+              dots: true
+            }
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+              initialSlide: 2,
+              arrows:false
+            }
+          },
+          {
+            breakpoint: 480,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              arrows:false
+            }
+          }
+        ]
+      };
+
+
+    return (
+        <div>
+            <h2>Genres</h2>
+            <div className="row mt-3">
+                <div className="col">
+                    <ul className="list-inline">
+                        {genres}
+                    </ul>
+                </div>
+            </div>
+            <h2> Responsive </h2>
+            <Slider {...settings}>
+               {discover}
+            </Slider>
+
+          
+
+
+        </div>
+    );
 
 }
-
-
-
 export default Genrelist;
