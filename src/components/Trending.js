@@ -13,8 +13,8 @@ function Trending() {
 
     const trendPerson = trendingPerson.slice(0, 4).map((item, index) => {
         return (
-            <div className="col-md-3 col-sm-6">
-                <img className="image-fluid rounded-circle"
+            <div className="col-md-3 col-sm-6" key={index}>
+                <img className="image-fluid rounded-circle mx_auto d-block"
                     src={item.profileImg}
                     alt={item.name}
                 >

@@ -1,39 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { fetchGenreList, fetchDiscoverMovie } from '../leverageAPI/Api'
+import { fetchTopRatedMovies } from "../leverageAPI/Api";
 import { Link } from 'react-router-dom';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 
-function Genrelist() {
-    const [genreList, setGenreList] = useState([]);
-    const [discoverMovie, setDiscoverMovie] = useState([]);
+function Top_rated_movies(){
+    const [topRated, setTopRated] = useState([]);
     useEffect(() => {
         const fetchAPI = async () => {
-            setGenreList(await fetchGenreList());
-            setDiscoverMovie(await fetchDiscoverMovie());
+            setTopRated(await fetchTopRatedMovies());
         };
         fetchAPI();
     }, []);
-    const handleGenreEvent = async (genre_id) => {
-        setDiscoverMovie(await fetchDiscoverMovie(genre_id));
+ 
 
-    }
+    const topRatedList=topRated.map((item,index)=>{
 
-    const genres = genreList.map((item, index) => {
-        return (
-            <li className="list-inline-item" key={index}>
-                <button type="button" className="btn btn-outline-info" onClick={(e) => {
-                    e.preventDefault();
-                    handleGenreEvent(item.id);
-                }}>
-                    {item.name}
-                </button>
-            </li>
-        );
-    })
-
-    const discover = discoverMovie.slice(0, 64).map((item, index) => {
         return (
             <div className="i" style={{ display: 'flex' }} key={index}>
                 <div className="i" style={{ backgroundColor: "#1a1a1a", display: 'flex', justifyContent: 'center', width: '220px', height: '380px', margin: '10px' }}>
@@ -45,7 +28,10 @@ function Genrelist() {
                 </div>
             </div>
         )
+
     })
+
+    
 
 
     var settings = {
@@ -86,22 +72,19 @@ function Genrelist() {
       };
 
 
-    return (
+    return(
         <div>
-            <h2>Genres</h2>
-            <div className="row mt-3">
-                <div className="col">
-                    <ul className="list-inline">
-                        {genres}
-                    </ul>
-                </div>
-            </div>
-            <h2> Responsive </h2>
-            <Slider {...settings}>
-               {discover}
-            </Slider>
-        </div>
+        <h2> TOP RATED MOVIES </h2>
+        <Slider {...settings}>
+           {topRatedList}
+        </Slider>
+    </div>
+
     );
 
 }
-export default Genrelist;
+
+
+
+
+export default Top_rated_movies;
