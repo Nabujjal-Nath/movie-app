@@ -6,6 +6,7 @@ const genreList=`${baseUrl}/genre/movie/list`;
 const discoverMovie=`${baseUrl}/discover/movie`;
 const trendingPerson=`${baseUrl}/trending/person/week`;
 const topRatedMovies=`${baseUrl}/movie/top_rated`;
+const movies=`${baseUrl}/movie`;
 
 export const fetchNowPlaying=async()=>{
  const {data}= await axios.get(nowPlaying,{
@@ -102,4 +103,22 @@ export const fetchTopRatedMovies=async()=>{
 }
 
 
-
+export const fetchMovies=async(movie_id)=>{
+    const {data}=await axios.get(`$movies/${movie_id}`,{
+        params:{
+            api_key:apiKey,
+        }
+    })
+    const posterUrl='https://image.tmdb.org/t/p/original/';
+    const modifiedData=data['results'].map((m)=>({
+        id : m['id'],
+        backPoster : posterUrl + m['backdrop_path'],
+        popularity : m['popularith'],
+        title:m['title'],
+        poster:posterUrl+m['poster_path'],
+        overview:m['overview'],
+        rating:m['vote_average']
+   
+    }))
+    return modifiedData;
+}
