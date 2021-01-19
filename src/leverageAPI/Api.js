@@ -47,7 +47,8 @@ export const fetchDiscoverMovie=async(genre_id)=>{
         params:{
             api_key:apiKey,
             page:1,
-            with_genres:genre_id
+            with_genres:genre_id,
+            
         }
     })
     const posterUrl='https://image.tmdb.org/t/p/original/';
@@ -86,7 +87,9 @@ export const fetchTopRatedMovies=async()=>{
     const {data}=await axios.get(topRatedMovies,{
         params:{
             api_key:apiKey,
+            
         }
+
     })
     const posterUrl='https://image.tmdb.org/t/p/original/';
     const modifiedData=data['results'].map((m)=>({
@@ -103,22 +106,55 @@ export const fetchTopRatedMovies=async()=>{
 }
 
 
+
 export const fetchMovies=async(movie_id)=>{
-    const {data}=await axios.get(`$movies/${movie_id}`,{
+    const {data}=await axios.get(`${movies}/${movie_id}`,{
+        params:{
+            api_key:apiKey,
+           
+        }
+    })
+    const posterUrl='https://image.tmdb.org/t/p/original/';
+    // const modifiedData=data['results'].map((m)=>({
+    //     id : m['id'],
+    //     backPoster : posterUrl + m['backdrop_path'],
+    //     popularity : m['popularith'],
+    //     title:m['title'],
+    //     poster:posterUrl+m['poster_path'],
+    //     overview:m['overview'],
+    //     rating:m['vote_average']
+   
+    // }))
+    const modifiedData={
+         id:data.id,
+         original_title:data.original_title,
+         overview:data.overview,
+         genres:data.genres,
+         backPoster:posterUrl+data.backdrop_path,
+         poster:posterUrl+data.poster_path,
+         revenue:data.revenue,
+         runtime:data.runtime,
+         release_date:data.release_date,
+         budget:data.budget,
+         title:data.title,
+
+    }
+    // console.log('modified..adata:',modifiedData);
+    return modifiedData;
+}
+
+
+export const fetchVideos=async(movie_id)=>{
+   try{
+    const {data}=await axios.get(`${movies}/${movie_id}/videos`,{
         params:{
             api_key:apiKey,
         }
     })
-    const posterUrl='https://image.tmdb.org/t/p/original/';
-    const modifiedData=data['results'].map((m)=>({
-        id : m['id'],
-        backPoster : posterUrl + m['backdrop_path'],
-        popularity : m['popularith'],
-        title:m['title'],
-        poster:posterUrl+m['poster_path'],
-        overview:m['overview'],
-        rating:m['vote_average']
-   
-    }))
-    return modifiedData;
+    if(data.results[1])
+     return data.results[1];
+    else 
+     return data.results[0];
+      
+}catch(e){}
 }
