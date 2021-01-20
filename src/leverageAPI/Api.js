@@ -157,15 +157,7 @@ export const fetchCast = async (movie_id) => {
                 api_key: apiKey,
             }
         })
-        // if(data.cast.length<1)
-        // {
-        //     return(
-        //         {
-        //            code:1,
-        //            msg:"Sorry, data not available yet!"
-        //         }
-        //     )
-        // }
+      
         const modifiedData = data['cast'].map((m) => ({
             id: m['id'],
             character: m['character'],
@@ -201,3 +193,4 @@ export const fetchSimilar = async (movie_id) => {
 
     } catch (e) { }
 }
+

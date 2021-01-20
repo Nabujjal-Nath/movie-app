@@ -1,27 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import { fetchMovies, fetchVideos, fetchCast } from '../../leverageAPI/Api';
+import { fetchMovies, fetchVideos, fetchCast, fetchSimilar } from '../../leverageAPI/Api';
 import { Modal } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "react-bootstrap-carousel/dist/react-bootstrap-carousel.css";
 import ReactPlayer from "react-player";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Footer from '../Footer';
 
 function MovieDetails({ match }) {
     console.log('params..', match);
     let genre = [];
     let results = match.params;
+    let castList;
     const [movieInfo, setMovieInfo] = useState([]);
     const [isOpen, setOpen] = useState(false);
     const [video, setVideo] = useState([]);
     const [cast, setCast] = useState([]);
-    // const [similar, setSimilar] = useState([]);
+    const [similar, setSimilar] = useState([]);
     useEffect(() => {
         const fetchAPI = async () => {
             setMovieInfo(await fetchMovies(results.id));
             setVideo(await fetchVideos(results.id));
             setCast(await fetchCast(results.id));
-            // setSimilar(await fetchSimilar(results.id));
+            setSimilar(await fetchSimilar(results.id));
+            window.scrollTo(0, 0);
         };
         fetchAPI();
     }, [results.id]);
@@ -44,34 +48,38 @@ function MovieDetails({ match }) {
             {genreList}
         </ul>
     </div>
-   
-    
-   const castList = cast.map((item, index) => {
+
+
+    if (cast.length > 4) {
+        castList = cast.map((item, index) => {
+            return (
+                <div style={{ display: 'flex' }} key={index}>
+                    <div className="col" style={{ backgroundColor: "#1a1a1a", display: 'flex', justifyContent: 'center', width: '220px', height: '380px', margin: '10px' }}>
+                        <div >
+                            <img style={{ width: '200px', height: '270px', paddingTop: '20px' }} src={item.profileImg} alt={item.id}></img>
+                            <p style={{ color: "#2c9be6", textDecoration: 'none' }}>{item.name}</p>
+                            <p style={{ color: "#2c9be6", textDecoration: 'none' }} >{item.character}</p>
+                        </div>
+                    </div>
+                </div>
+            )
+        })
+    }
+
+    const similarMovies = similar.map((item, index) => {
         return (
             <div style={{ display: 'flex' }} key={index}>
                 <div className="col" style={{ backgroundColor: "#1a1a1a", display: 'flex', justifyContent: 'center', width: '220px', height: '380px', margin: '10px' }}>
-                    <div >
-                        <img style={{ width: '200px', height: '270px', paddingTop: '20px' }} src={item.profileImg} alt={item.id}></img>
-                        <p style={{ color: "#2c9be6", textDecoration: 'none' }}>{item.name}</p>
-                        <p style={{ color: "#2c9be6", textDecoration: 'none' }} >{item.character}</p>
-                    </div>
+                    <Link to={`/movie/${item.id}`}>
+                        <img style={{ width: '200px', height: '270px', paddingTop: '20px' }} src={item.poster} alt={item.title}></img>
+                        <p style={{ color: "#2c9be6", textDecoration: 'none' }}>{item.title}</p>
+                        <p style={{ color: "#2c9be6", textDecoration: 'none' }} ><i className="fas fa-star" style={{ color: '#ffcc00', paddingRight: '10px' }}></i>{item.rating}</p>
+                    </Link>
                 </div>
             </div>
         )
     })
-
-  
-
-// console.log("castt..",cast[0].code);    
-
-
-
-
-
-
-
-
-
+    console.log('similar...',similarMovies);
 
     const MoviePalyerModal = (props) => {
         const youtubeUrl = "https://www.youtube.com/watch?v=";
@@ -208,11 +216,37 @@ function MovieDetails({ match }) {
 
                     </div>
                 </div>
+                <div>
+                    {
+                        (cast.length > 4) ? (
+                            <Slider {...settings}>
+                                {castList}
+                            </Slider>)
+                            : (<h5 className="row mt-2 ml-3">Sorry, cast not available yet !</h5>)
+                    }
+                </div>
+              
+                <div>
+                    {
+                        (similar.length > 4) ? (
+                            <div>
+                            <div className="row mt-3">
+                            <div className="col">
+                                <h4>More Like This</h4>
+                            </div>
+                        </div>
+                            <Slider {...settings}>
+                                {similarMovies}
+                            </Slider>
+                            </div>)
+                            : (<br/>)
+                    }
+                </div>
                 
-                <Slider {...settings}>
-                    {castList}
-                </Slider>
-                
+               
+                < Footer/>
+
+
             </div>
 
 
