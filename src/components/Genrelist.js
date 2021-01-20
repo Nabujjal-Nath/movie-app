@@ -35,12 +35,12 @@ function Genrelist() {
 
     const discover = discoverMovie.slice(0, 64).map((item, index) => {
         return (
-            <div className="i" style={{ display: 'flex' }} key={index}>
-                <div className="i" style={{ backgroundColor: "#1a1a1a", display: 'flex', justifyContent: 'center', width: '220px', height: '380px', margin: '10px' }}>
+            <div  style={{ display: 'flex' }} key={index}>
+                <div className="col" style={{ backgroundColor: "#1a1a1a", display: 'flex', justifyContent: 'center', width: '220px', height: '380px', margin: '10px' }}>
                     <Link to={`/movie/${item.id}`}>
-                        <img className="i" style={{ width: '200px', height: '270px', paddingTop: '20px' }} src={item.poster} alt={item.title}></img>
-                        <p className="i" style={{ color: "#2c9be6", textDecoration:'none' }}>{item.title}</p>
-                        <p className="i" style={{ color: "#2c9be6",textDecoration:'none' }} ><i className="fas fa-star" style={{color:'#ffcc00',paddingRight:'10px'}}></i>{item.rating}</p>
+                        <img  style={{ width: '200px', height: '270px', paddingTop: '20px' }} src={item.poster} alt={item.title}></img>
+                        <p  style={{ color: "#2c9be6", textDecoration:'none' }}>{item.title}</p>
+                        <p  style={{ color: "#2c9be6",textDecoration:'none' }} ><i className="fas fa-star" style={{color:'#ffcc00',paddingRight:'10px'}}></i>{item.rating}</p>
                     </Link>
                 </div>
             </div>

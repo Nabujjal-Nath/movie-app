@@ -1,23 +1,76 @@
 import React, { useEffect, useState } from 'react';
-import { fetchMovies, fetchVideos } from '../../leverageAPI/Api';
+import { fetchMovies, fetchVideos, fetchCast } from '../../leverageAPI/Api';
 import { Modal } from "react-bootstrap";
 import "react-bootstrap-carousel/dist/react-bootstrap-carousel.css";
 import ReactPlayer from "react-player";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function MovieDetails({ match }) {
     console.log('params..', match);
+    let genre = [];
     let results = match.params;
     const [movieInfo, setMovieInfo] = useState([]);
     const [isOpen, setOpen] = useState(false);
     const [video, setVideo] = useState([]);
+    const [cast, setCast] = useState([]);
+    // const [similar, setSimilar] = useState([]);
     useEffect(() => {
         const fetchAPI = async () => {
             setMovieInfo(await fetchMovies(results.id));
             setVideo(await fetchVideos(results.id));
+            setCast(await fetchCast(results.id));
+            // setSimilar(await fetchSimilar(results.id));
         };
         fetchAPI();
     }, [results.id]);
     console.log('movieInfo...:', movieInfo)
+    genre = movieInfo.genres;
+    let genreList;
+    if (genre) {
+        genreList = genre.map((item, index) => {
+            return (
+                <li className="list-inline-item" key={index}>
+                    {item.name}
+                </li>
+            )
+        })
+    }
+
+    <div className="col-md-3">
+        <h4>Genre</h4>
+        <ul className="inline-list" style={{ color: "#2c9be6" }} >
+            {genreList}
+        </ul>
+    </div>
+   
+    
+   const castList = cast.map((item, index) => {
+        return (
+            <div style={{ display: 'flex' }} key={index}>
+                <div className="col" style={{ backgroundColor: "#1a1a1a", display: 'flex', justifyContent: 'center', width: '220px', height: '380px', margin: '10px' }}>
+                    <div >
+                        <img style={{ width: '200px', height: '270px', paddingTop: '20px' }} src={item.profileImg} alt={item.id}></img>
+                        <p style={{ color: "#2c9be6", textDecoration: 'none' }}>{item.name}</p>
+                        <p style={{ color: "#2c9be6", textDecoration: 'none' }} >{item.character}</p>
+                    </div>
+                </div>
+            </div>
+        )
+    })
+
+  
+
+// console.log("castt..",cast[0].code);    
+
+
+
+
+
+
+
+
 
 
     const MoviePalyerModal = (props) => {
@@ -29,9 +82,9 @@ function MovieDetails({ match }) {
                     size="lg"
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
-                    
+
                 >
-                    
+
                     <Modal.Body style={{ backgroundColor: "#000000" }}>
                         <ReactPlayer
                             className="react-player"
@@ -47,43 +100,134 @@ function MovieDetails({ match }) {
     }
 
 
-    return (
-        <div className="container">
-            <div className="row mt-2">
-                {
-                 (video)?(
-                    <MoviePalyerModal
-                        show={isOpen}
-                        onHide={() => {
-                            setOpen(false);
-                        }}
-
-                    ></MoviePalyerModal>):(<br/>)
+    var settings = {
+        dots: false,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 4,
+        slidesToScroll: 3,
+        initialSlide: 0,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                    infinite: true,
+                    dots: true
                 }
-        
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                    initialSlide: 2,
+                    arrows: false
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    arrows: false
+                }
+            }
+        ]
+    };
 
-                <div className="col text-center" style={{ width: "100%" }}>
-                    <img
-                        className="img-fluid" style={{ width: '100%', height: '500px' }}
-                        src={movieInfo.backPoster}
-                        alt={movieInfo.title}
-                    />
-                    <div className="carousel-center"><i
-                        onClick={() => setOpen(true)}
-                        className="far fa-play-circle"
-                        style={{ fontSize: 100, color: 'yellow', marginBottom: "10px" }}
-                    >
-                    </i>
-                    </div>
-                    <div className="carousel-caption">
-                        <h3>
-                            {movieInfo.title}
-                        </h3>
-                    </div>
 
+
+    return (
+        <div>
+            <div className="container">
+                <div className="row mt-2">
+                    {
+                        (video) ? (
+                            <MoviePalyerModal
+                                show={isOpen}
+                                onHide={() => {
+                                    setOpen(false);
+                                }}
+
+                            ></MoviePalyerModal>) : (<br />)
+                    }
+
+
+                    <div className="col text-center" style={{ width: "100%" }}>
+                        <img
+                            className="img-fluid" style={{ width: '100%', height: '500px' }}
+                            src={movieInfo.backPoster}
+                            alt={movieInfo.title}
+                        />
+                        <div className="carousel-center"><i
+                            onClick={() => setOpen(true)}
+                            className="far fa-play-circle"
+                            style={{ fontSize: 100, color: 'yellow', marginBottom: "10px" }}
+                        >
+                        </i>
+                        </div>
+                        <div className="carousel-caption">
+                            <h3>
+                                {movieInfo.title}
+                            </h3>
+                        </div>
+
+                    </div>
                 </div>
+                <div className="row mt-3" >
+                    <div className="col-md-3">
+                        <h4>Genre</h4>
+                        <ul className="inline-list" style={{ color: "#2c9be6" }} >
+                            {genreList}
+                        </ul>
+                    </div>
+                    <div className="col-md-3">
+                        <h4>Runtime</h4>
+                        <p style={{ color: "#2c9be6" }} >{movieInfo.runtime + " mins"}</p>
+                    </div>
+                    <div className="col-md-3">
+                        <h4>Release Date</h4>
+                        <p style={{ color: "#2c9be6" }} >{movieInfo.release_date}</p>
+                    </div>
+                    <div className="col-md-3">
+                        <h4>Revenue</h4>
+                        <p style={{ color: "#2c9be6" }} >{movieInfo.revenue}</p>
+                    </div>
+                </div>
+                <div className="row mt-3">
+                    <div className="col">
+                        <h4>Overview</h4>
+                        <p>{movieInfo.overview}</p>
+                    </div>
+                </div>
+                <div className="row mt-3">
+                    <div className="col">
+                        <h4>Cast</h4>
+
+                    </div>
+                </div>
+                
+                <Slider {...settings}>
+                    {castList}
+                </Slider>
+                
             </div>
+
+
+
+
         </div>
+
     );
 }
 export default MovieDetails;
+
+
+
+
+
+
+
+
