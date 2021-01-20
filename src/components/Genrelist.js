@@ -41,7 +41,7 @@ function Genrelist() {
                         <img  style={{ width: '200px', height: '270px', paddingTop: '20px' }} src={item.poster} alt={item.title}></img>
                         <p  style={{ color: "#2c9be6", textDecoration:'none' }}>{item.title}</p>
                         <p  style={{ color: "#2c9be6",textDecoration:'none' }} ><i className="fas fa-star" style={{color:'#ffcc00',paddingRight:'10px'}}></i>{item.rating}</p>
-                    </Link>
+                    </Link> 
                 </div>
             </div>
         )
