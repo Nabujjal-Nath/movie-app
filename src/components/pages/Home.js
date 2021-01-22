@@ -1,7 +1,7 @@
 import Slideshow from '../Slideshow';
 import Genrelist from '../Genrelist';
 import Trending from '../Trending'
-import Top_rated_movies from '../Top_rated_movies';
+import TopRatedMovies from '../TopRatedMovies';
 import Footer from '../Footer';
 import Navbar from '../Navbar';
 function Home() {
@@ -12,7 +12,7 @@ function Home() {
             < Slideshow/>
             < Genrelist/>
             < Trending/>
-            < Top_rated_movies/>
+            < TopRatedMovies/>
             < Footer/>
         </div>
     );

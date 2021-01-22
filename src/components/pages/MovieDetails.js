@@ -82,6 +82,8 @@ function MovieDetails({ match }) {
     })
     console.log('similar...', similarMovies);
 
+    console.log("videosss",video);
+
     const MoviePalyerModal = (props) => {
         const youtubeUrl = "https://www.youtube.com/watch?v=";
         if (typeof video !== 'undefined') {
@@ -147,7 +149,7 @@ function MovieDetails({ match }) {
     };
 
 
-
+    console.log("Movie Info",movieInfo);
     return (
         <div>
 
@@ -165,19 +167,26 @@ function MovieDetails({ match }) {
                             ></MoviePalyerModal>) : (<br />)
                     }
 
-
+                    {
+                        (movieInfo.backPoster!=="https://image.tmdb.org/t/p/original/null")?(
                     <div className="col text-center" style={{ width: "100%" }}>
+                        
+                            
                         <img
                             className="img-fluid" style={{ width: '100%', height: '500px' }}
                             src={movieInfo.backPoster}
                             alt={movieInfo.title}
                         />
-                        <div className="carousel-center"><i
+                        
+                        <div className="carousel-center">
+                         {
+                          (video)?(   
+                         <i
                             onClick={() => setOpen(true)}
                             className="far fa-play-circle"
                             style={{ fontSize: 100, color: 'yellow', marginBottom: "10px" }}
                         >
-                        </i>
+                        </i>):(<h4 style={{color:"red"}}>Sorry,No TRAILER</h4>)}
                         </div>
                         <div className="carousel-caption">
                             <h3>
@@ -185,7 +194,7 @@ function MovieDetails({ match }) {
                             </h3>
                         </div>
 
-                    </div>
+                    </div>):(<h4 className="row ml-3">Oops! No trailer availabe</h4>)}
                 </div>
                 <div className="row mt-3" >
                     <div className="col-md-3">

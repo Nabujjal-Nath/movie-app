@@ -28,10 +28,6 @@ function Slideshow(){
                     />
                      
                     <Carousel.Caption>
-                       <h1><i className="far fa-play-circle"
-                       style={{fontSize:100, color:'yellow', marginBottom:"100px"}}
-                      >
-                      </i> </h1>
                         <h3>{item.title}</h3>
                       
                     </Carousel.Caption>

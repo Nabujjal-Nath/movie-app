@@ -11,17 +11,17 @@ function Footer() {
                    </p>
                     <ul className="list-inline" style={{display:"flex",justifyContent:"space-around",textAlign:"center",fontSize:'30px'}}>
                         <li className="list-inline-item">
-                            <a href="/" style={{ color: '#2c9be6' }}>
+                            <a href="https://m.facebook.com/Nabujjal?ref=bookmarks" style={{ color: '#2c9be6' }}>
                                 <i className="fab fa-facebook" ></i>
                             </a>
                         </li>
                         <li className="list-inline-item">
-                            <a href="https://github.com/Nabujjal-Nath" style={{ color: '#2c9be6' }}>
+                            <a href="https://github.com/Nabujjal-Nath/movie-app" style={{ color: '#2c9be6' }}>
                                 <i className="fab fa-github"></i>
                             </a>
                         </li>
                         <li className="list-inline-item">
-                            <a href="/" style={{ color: '#2c9be6' }}>
+                            <a href="https://twitter.com/Nabuda95" style={{ color: '#2c9be6' }}>
                                 <i className="fab fa-twitter"></i>
                             </a>
                         </li>

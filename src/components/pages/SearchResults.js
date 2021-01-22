@@ -1,4 +1,3 @@
-import Footer from '../Footer';
 import Navbar from '../Navbar';
 import {React,useEffect,useState} from 'react'
 import {Link } from 'react-router-dom';
@@ -40,7 +39,6 @@ function SearchResults({match}) {
 
             {movieList}
             </div>
-            < Footer/>
         </div>
         </div>
     );

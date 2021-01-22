@@ -5,7 +5,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 
-function Top_rated_movies(){
+function TopRatedMovies(){
     const [topRated, setTopRated] = useState([]);
     useEffect(() => {
         const fetchAPI = async () => {
@@ -87,4 +87,4 @@ function Top_rated_movies(){
 
 
 
-export default Top_rated_movies;
+export default TopRatedMovies;
