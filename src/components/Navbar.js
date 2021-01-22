@@ -21,7 +21,7 @@ import {Link } from 'react-router-dom';
        </div>
       
          <form className="navbar-form navbar-left" style={{display:'flex'}}> 
-           <div className="form-group" style={{width:"350px"}} >
+           <div className="form-group" >
            <input type="text" className="form-control"
            onChange={handleSearchInputChanges}
             />

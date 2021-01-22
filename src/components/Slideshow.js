@@ -20,7 +20,7 @@ function Slideshow(){
             
                 <Carousel.Item   key={index} style={{ height: 500, width: "100%" }} >
                     <img
-                        className="d-block w-100"
+                        className="d-block w-100 col-xs-12"
                         src={item.backPoster}
                         alt={item.title}
                         style={{ height: 600 }}

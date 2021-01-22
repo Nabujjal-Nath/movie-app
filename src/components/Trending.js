@@ -55,7 +55,7 @@ function Trending() {
     const trendPerson = trendingPerson.map((item, index) => {
         return (
             <div  style={{ display: 'flex' }} key={index}>
-            <div className="col" style={{ backgroundColor: "#1a1a1a", display: 'flex', justifyContent: 'center', width: '220px', height: '380px', margin: '10px' }}>
+            <div className="col col-xs-12 ml-4" style={{ backgroundColor: "#1a1a1a", display: 'flex', justifyContent: 'center', width: '220px', height: '380px', margin: '10px' }}>
                     <div>
                     <img  style={{ width: '200px', height: '270px', paddingTop: '20px' }} src={item.profileImg} alt={item.name}></img>
                     <p  style={{ color: "#2c9be6", textDecoration:'none' }}>{item.name}</p>
