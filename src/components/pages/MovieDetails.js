@@ -8,6 +8,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Footer from '../Footer';
+import Navbar from '../Navbar';
 
 function MovieDetails({ match }) {
     console.log('params..', match);
@@ -79,7 +80,7 @@ function MovieDetails({ match }) {
             </div>
         )
     })
-    console.log('similar...',similarMovies);
+    console.log('similar...', similarMovies);
 
     const MoviePalyerModal = (props) => {
         const youtubeUrl = "https://www.youtube.com/watch?v=";
@@ -149,7 +150,9 @@ function MovieDetails({ match }) {
 
     return (
         <div>
+
             <div className="container">
+                < Navbar />
                 <div className="row mt-2">
                     {
                         (video) ? (
@@ -225,26 +228,26 @@ function MovieDetails({ match }) {
                             : (<h5 className="row mt-2 ml-3">Sorry, cast not available yet !</h5>)
                     }
                 </div>
-              
+
                 <div>
                     {
                         (similar.length > 4) ? (
                             <div>
-                            <div className="row mt-3">
-                            <div className="col">
-                                <h4>More Like This</h4>
-                            </div>
-                        </div>
-                            <Slider {...settings}>
-                                {similarMovies}
-                            </Slider>
+                                <div className="row mt-3">
+                                    <div className="col">
+                                        <h4>More Like This</h4>
+                                    </div>
+                                </div>
+                                <Slider {...settings}>
+                                    {similarMovies}
+                                </Slider>
                             </div>)
-                            : (<br/>)
+                            : (<br />)
                     }
                 </div>
-                
-               
-                < Footer/>
+
+
+                < Footer />
 
 
             </div>

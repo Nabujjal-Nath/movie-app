@@ -7,6 +7,7 @@ const discoverMovie = `${baseUrl}/discover/movie`;
 const trendingPerson = `${baseUrl}/trending/person/week`;
 const topRatedMovies = `${baseUrl}/movie/top_rated`;
 const movies = `${baseUrl}/movie`;
+const search=`${baseUrl}/search/movie`;
 
 export const fetchNowPlaying = async () => {
     const { data } = await axios.get(nowPlaying, {
@@ -183,6 +184,30 @@ export const fetchSimilar = async (movie_id) => {
             id: m['id'],
             backPoster: posterUrl + m['backdrop_path'],
             popularity: m['popularith'],
+            title: m['title'],
+            poster: posterUrl + m['poster_path'],
+            overview: m['overview'],
+            rating: m['vote_average']
+
+        }))
+        return modifiedData;
+
+    } catch (e) { }
+}
+
+export const FetchSearch = async (query) => {
+    try {
+        const { data } = await axios.get(`${search}`, {
+            params: {
+                api_key: apiKey,
+                query:query
+            }
+        })
+        const posterUrl = 'https://image.tmdb.org/t/p/original/';
+        const modifiedData = data['results'].map((m) => ({
+            id: m['id'],
+            backPoster: posterUrl + m['backdrop_path'],
+            popularity: m['popularity'],
             title: m['title'],
             poster: posterUrl + m['poster_path'],
             overview: m['overview'],

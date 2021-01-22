@@ -14,7 +14,7 @@ function Slideshow(){
     }, []);
     
    
-     const jkl=nowPlaying.slice(0, 5).map((item, index) => {
+     const slideShow=nowPlaying.slice(0, 5).map((item, index) => {
         return (
                  
             
@@ -45,9 +45,9 @@ function Slideshow(){
 
     return(
         <div>
-        <h1>Movies Playing Now in Theatre</h1>
+        <h2>Movies Playing Now in Theatre</h2>
         <Carousel >
-           {jkl}
+           {slideShow}
         </Carousel>
     </div>
     )

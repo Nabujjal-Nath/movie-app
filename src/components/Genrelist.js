@@ -88,7 +88,7 @@ function Genrelist() {
 
     return (
         <div>
-            <h2>Genres</h2>
+            <h3>Genres</h3>
             <div className="row mt-3">
                 <div className="col">
                     <ul className="list-inline">
@@ -96,7 +96,7 @@ function Genrelist() {
                     </ul>
                 </div>
             </div>
-            <h2> Responsive </h2>
+            <h3> Watch Trailer </h3>
             <Slider {...settings}>
                {discover}
             </Slider>
