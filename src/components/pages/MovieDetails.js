@@ -11,7 +11,6 @@ import Footer from '../Footer';
 import Navbar from '../Navbar';
 
 function MovieDetails({ match }) {
-    console.log('params..', match);
     let genre = [];
     let results = match.params;
     let castList;
@@ -30,7 +29,7 @@ function MovieDetails({ match }) {
         };
         fetchAPI();
     }, [results.id]);
-    console.log('movieInfo...:', movieInfo)
+    
     genre = movieInfo.genres;
     let genreList;
     if (genre) {
@@ -80,9 +79,7 @@ function MovieDetails({ match }) {
             </div>
         )
     })
-    console.log('similar...', similarMovies);
-
-    console.log("videosss",video);
+   
 
     const MoviePalyerModal = (props) => {
         const youtubeUrl = "https://www.youtube.com/watch?v=";
@@ -149,7 +146,7 @@ function MovieDetails({ match }) {
     };
 
 
-    console.log("Movie Info",movieInfo);
+  
     return (
         <div>
 

@@ -166,7 +166,6 @@ export const fetchCast = async (movie_id) => {
             profileImg: 'https://image.tmdb.org/t/p/w200' + m['profile_path'],
             code:0
         }))
-        console.log('modified cast',modifiedData);
         return modifiedData;
         
 
